@@ -23,7 +23,7 @@ public class IndexController {
         //Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
         //Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
         //System.out.println("Cat Id is: " + categoryOptional.get().getId());
-        model.addAttribute("recipes2", recipeService.getRecipes());
+        model.addAttribute("recipes", recipeService.getRecipes());
         //    <tr th:each="recipe : ${recipes}"> dolardan sonraki recipes ın adı yukarıdaki.
         return "index";
     }

@@ -15,11 +15,20 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 //{id} ile  @PathVariable String id ismi ile aynı olmalı
-    @RequestMapping("/recipe/show/{id}")
+    @RequestMapping("/recipe/{id}/show")
         public String showById (@PathVariable String id, Model model){
               model.addAttribute("recipe2", recipeService.findById(new Long(id)));
 
               return "recipe/show";
+    }
+
+    @RequestMapping("recipe/{id}/update")
+    public String updateRecipe(@PathVariable String id, Model model){
+
+        //model.addAttribute("recipe88", recipeService.findCommandById(Long.valueOf(id)));//Neither BindingResult nor plain target object for bean name 'recipe5' available as request attribute
+        //recipe5 recipeform.xhtml2de recipe/new de öyle çağırıyor. aynı adı vermek lazım o yüzden burada.
+        model.addAttribute("recipe5", recipeService.findCommandById(Long.valueOf(id)));
+        return  "recipe/recipeform";
     }
 
     @RequestMapping("/recipe/new")
@@ -44,7 +53,7 @@ public class RecipeController {
         //our service returs back a new implementation of the command
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
 
-        return "redirect:/recipe/show/" + savedCommand.getId();
+        return "redirect:/recipe/" + savedCommand.getId() +"/show";
 
         //redirect tells to Spring MVC to redirect to to a specific URL
         //saved  object comes back

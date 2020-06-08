@@ -51,6 +51,13 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional //it does a conversation out of the scope. so if we hit any lazy loaded properties it would go caboom.
+    public RecipeCommand findCommandById(Long l) {
+        return recipeToRecipeCommand.convert(findById(l));
+    }
+
+
+    @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand command) {
         Recipe detachedRecipe = recipeCommandToRecipe.convert(command);

@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 /**
  * Created by jt on 6/19/17.
@@ -72,7 +73,7 @@ public class RecipeControllerTest {
 
         when(recipeService.saveRecipeCommand(any())).thenReturn(command);
 
-        mockMvc.perform(post("/dummyfdsfd")
+        mockMvc.perform(post("/dummyfdsfd") //perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 //.param("id", "")
                 //.param("description", "some string")
@@ -95,5 +96,14 @@ public class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
                 .andExpect(model().attributeExists("recipe5"));
+    }
+
+    @Test
+    public void testDeleteAction() throws Exception {
+        mockMvc.perform(get("/recipe/1/delete")) //this is get.it would be delete if javascript or Rest
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/"));
+
+        verify(recipeService, times(1)).deleteById(anyLong());
     }
 }

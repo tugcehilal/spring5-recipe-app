@@ -27,7 +27,7 @@ public class IngredientController {
         log.debug("Getting ingredient list for recipe id: " + recipeId);
 
         // use command object to avoid lazy load errors in Thymeleaf.
-        model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(recipeId)));
+        model.addAttribute("recipe66", recipeService.findCommandById(Long.valueOf(recipeId)));
 
         return "recipe/ingredient/list";
     }

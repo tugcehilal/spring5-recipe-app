@@ -19,6 +19,7 @@ public class RecipeController {
 //{id} ile  @PathVariable String id ismi ile aynı olmalı
     @RequestMapping("/recipe/{id}/show")
         public String showById (@PathVariable String id, Model model){
+        //recipe/show daki recipe2 olmak zorunda
               model.addAttribute("recipe2", recipeService.findById(new Long(id)));
 
               return "recipe/show";
